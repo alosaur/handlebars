@@ -1,5 +1,7 @@
 ## Handlebars template render for Deno
 
+![test](https://github.com/alosaur/handlebars/workflows/test/badge.svg)
+
 Official handlebars docs: [Guide](https://handlebarsjs.com/guide)
 
 ### How to use renderer
