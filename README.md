@@ -7,6 +7,8 @@ Official handlebars docs: [Guide](https://handlebarsjs.com/guide)
 ### How to use renderer
 
 ```ts
+import { Handlebars } from 'https://deno.land/x/handlebars/mod.ts'
+
 // First, create instance of Handlebars
 
 const handle = new Handlebars();
