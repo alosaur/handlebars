@@ -29,7 +29,7 @@ const DEFAULT_HANDLEBARS_CONFIG: HandlebarsConfig = {
     compilerOptions: undefined,
 };
 
-// Then render page
-await handle.renderView('index', { name: 'Alosaur' })
+// Then render page to string
+const result: string = await handle.renderView('index', { name: 'Alosaur' })
 
 ```
