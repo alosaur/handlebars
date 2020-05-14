@@ -1,6 +1,6 @@
 import HandlebarsJS from 'https://dev.jspm.io/handlebars@4.7.6';
-import { walk } from 'https://deno.land/std/fs/mod.ts';
-import { globToRegExp, normalize, join } from 'https://deno.land/std/path/mod.ts';
+import { walk } from 'https://deno.land/std@0.51.0/fs/mod.ts';
+import { globToRegExp, normalize, join } from 'https://deno.land/std@0.51.0/path/mod.ts';
 const { readFile } = Deno;
 
 interface HandlebarsConfig {
@@ -103,4 +103,9 @@ export class Handlebars {
 
         return arr;
     }
+}
+
+async() => {
+    const handle = new Handlebars();
+    const text = await handle.renderView('index', { name: 'Alosaur' });
 }
