@@ -104,8 +104,3 @@ export class Handlebars {
         return arr;
     }
 }
-
-async() => {
-    const handle = new Handlebars();
-    const text = await handle.renderView('index', { name: 'Alosaur' });
-}
