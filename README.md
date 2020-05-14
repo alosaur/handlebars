@@ -33,3 +33,6 @@ const DEFAULT_HANDLEBARS_CONFIG: HandlebarsConfig = {
 const result: string = await handle.renderView('index', { name: 'Alosaur' })
 
 ```
+
+You must use the flag --unstable in Deno v1 `deno run --unstable'.
+because Deno.std is not stable. [deno/issues/5175](https://github.com/denoland/deno/issues/5175)
