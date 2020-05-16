@@ -34,8 +34,6 @@ function getNormalizePath(path: string) {
 export class Handlebars {
   constructor(private config: HandlebarsConfig = DEFAULT_HANDLEBARS_CONFIG) {
     this.config = { ...DEFAULT_HANDLEBARS_CONFIG, ...config };
-
-    console.log(this.config);
   }
 
   /**
