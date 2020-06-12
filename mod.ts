@@ -60,6 +60,12 @@ export class Handlebars {
     );
     partialsPathes && (await this.registerPartials(partialsPathes));
 
+    if (config.helpers) {
+      Object.keys(config.helpers).forEach((key) => {
+        HandlebarsJS.registerHelper(key, config.helpers[key]);
+      });
+    }
+
     const path = join(config.baseDir, view + config.extname);
     const body: string = await this.render(path, context);
 
