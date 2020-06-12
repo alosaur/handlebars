@@ -1,10 +1,10 @@
 import HandlebarsJS from "https://dev.jspm.io/handlebars@4.7.6";
-import { walk } from "https://deno.land/std@0.54.0/fs/mod.ts";
+import { walk } from "https://deno.land/std@0.56.0/fs/mod.ts";
 import {
   globToRegExp,
   normalize,
   join,
-} from "https://deno.land/std@0.54.0/path/mod.ts";
+} from "https://deno.land/std@0.56.0/path/mod.ts";
 const { readFile } = Deno;
 
 interface HandlebarsConfig {

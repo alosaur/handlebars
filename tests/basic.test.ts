@@ -1,5 +1,5 @@
 import { Handlebars } from "../mod.ts";
-import { assert } from "https://deno.land/std@v0.54.0/testing/asserts.ts";
+import { assert } from "https://deno.land/std@v0.56.0/testing/asserts.ts";
 const { test } = Deno;
 
 test({
