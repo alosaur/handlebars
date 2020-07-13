@@ -1,7 +1,7 @@
 import HandlebarsJS from "https://jspm.dev/handlebars@4.7.6";
-import { walk } from "https://deno.land/std@0.58.0/fs/walk.ts";
-import { globToRegExp } from "https://deno.land/std@0.58.0/path/glob.ts";
-import { join, normalize } from "https://deno.land/std@0.58.0/path/posix.ts";
+import { walk } from "https://deno.land/std@0.61.0/fs/walk.ts";
+import { globToRegExp } from "https://deno.land/std@0.61.0/path/glob.ts";
+import { join, normalize } from "https://deno.land/std@0.61.0/path/posix.ts";
 
 const { readFile } = Deno;
 
