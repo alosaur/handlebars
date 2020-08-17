@@ -1,10 +1,10 @@
 import HandlebarsJS from "https://dev.jspm.io/handlebars@4.7.6";
-import { walk } from "https://deno.land/std@0.51.0/fs/mod.ts";
+import { walk } from "https://deno.land/std@0.65.0/fs/mod.ts";
 import {
   globToRegExp,
   normalize,
   join,
-} from "https://deno.land/std@0.51.0/path/mod.ts";
+} from "https://deno.land/std@0.65.0/path/mod.ts";
 const { readFile } = Deno;
 
 interface HandlebarsConfig {
@@ -97,7 +97,7 @@ export class Handlebars {
       const templateName: string = path
         .replace(
           getNormalizePath(this.config.baseDir) + "/" +
-            this.config!.partialsDir,
+          this.config!.partialsDir,
           "",
         )
         .replace(new RegExp(this.config!.extname + "$"), "");
