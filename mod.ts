@@ -34,6 +34,15 @@ function getNormalizePath(path: string) {
 export class Handlebars {
   constructor(private config: HandlebarsConfig = DEFAULT_HANDLEBARS_CONFIG) {
     this.config = { ...DEFAULT_HANDLEBARS_CONFIG, ...config };
+
+    if (this.config.helpers) {
+      const helperKeys = Object.keys(this.config.helpers);
+
+      for (let i = 0; i < helperKeys.length; i++) {
+        const helperKey = helperKeys[i];
+        HandlebarsJS.registerHelper(helperKey, this.config.helpers[helperKey])
+      }
+    }
   }
 
   /**

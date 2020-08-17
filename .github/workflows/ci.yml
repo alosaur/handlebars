@@ -16,4 +16,4 @@ jobs:
               with:
                   deno-version: ${{ matrix.deno }}
             - name: Test
-              run: deno test -A --unstable
+              run: deno test --allow-read --unstable
