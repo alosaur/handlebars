@@ -7,7 +7,7 @@ import {
 } from "https://deno.land/std@0.65.0/path/mod.ts";
 const { readFile } = Deno;
 
-interface HandlebarsConfig {
+export interface HandlebarsConfig {
   baseDir: string;
   extname: string;
   layoutsDir: string;
