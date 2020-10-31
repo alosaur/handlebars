@@ -1,10 +1,10 @@
 import HandlebarsJS from "https://dev.jspm.io/handlebars@4.7.6";
-import { walk } from "https://deno.land/std@0.65.0/fs/mod.ts";
+import { walk } from "https://deno.land/std@0.76.0/fs/mod.ts";
 import {
   globToRegExp,
-  normalize,
   join,
-} from "https://deno.land/std@0.65.0/path/mod.ts";
+  normalize,
+} from "https://deno.land/std@0.76.0/path/mod.ts";
 const { readFile } = Deno;
 
 export interface HandlebarsConfig {
@@ -40,7 +40,8 @@ export class Handlebars {
 
       for (let i = 0; i < helperKeys.length; i++) {
         const helperKey = helperKeys[i];
-        HandlebarsJS.registerHelper(helperKey, this.config.helpers[helperKey])
+        // @ts-ignore
+        HandlebarsJS.registerHelper(helperKey, this.config.helpers[helperKey]);
       }
     }
   }
@@ -93,6 +94,7 @@ export class Handlebars {
   public async render(path: string, context?: Object): Promise<string> {
     // TODO: use cashe
     const source: string = new TextDecoder().decode(await readFile(path));
+    // @ts-ignore
     const template = HandlebarsJS.compile(source, this.config!.compilerOptions);
 
     return template(context);
@@ -106,12 +108,13 @@ export class Handlebars {
       const templateName: string = path
         .replace(
           getNormalizePath(this.config.baseDir) + "/" +
-          this.config!.partialsDir,
+            this.config!.partialsDir,
           "",
         )
         .replace(new RegExp(this.config!.extname + "$"), "");
       const source: string = new TextDecoder().decode(await readFile(path));
 
+      // @ts-ignore
       HandlebarsJS.registerPartial(templateName, source);
     }
   }
