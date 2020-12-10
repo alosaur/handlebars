@@ -55,7 +55,7 @@ export class Handlebars {
      */
   public async renderView(
     view: string,
-    context?: Object,
+    context?: Record<string, unknown>,
     layout?: string,
   ): Promise<string> {
     if (!view) {
@@ -91,7 +91,7 @@ export class Handlebars {
   /**
      * Processes on render without partials and layouts
      */
-  public async render(path: string, context?: Object): Promise<string> {
+  public async render(path: string, context?: Record<string, unknown>): Promise<string> {
     // TODO: use cashe
     const source: string = new TextDecoder().decode(await readFile(path));
     // @ts-ignore
