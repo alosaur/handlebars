@@ -13,7 +13,9 @@ export interface HandlebarsConfig {
   layoutsDir: string;
   partialsDir: string;
   defaultLayout: string;
+  // deno-lint-ignore no-explicit-any
   helpers: any;
+  // deno-lint-ignore no-explicit-any
   compilerOptions: any;
 }
 
