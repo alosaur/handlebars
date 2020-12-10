@@ -15,5 +15,7 @@ jobs:
               uses: denolib/setup-deno@master
               with:
                   deno-version: ${{ matrix.deno }}
+            - name: Lint
+              run: deno lint --unstable
             - name: Test
               run: deno test --allow-read --unstable

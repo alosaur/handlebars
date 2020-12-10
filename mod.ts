@@ -13,7 +13,9 @@ export interface HandlebarsConfig {
   layoutsDir: string;
   partialsDir: string;
   defaultLayout: string;
+  // deno-lint-ignore no-explicit-any
   helpers: any;
+  // deno-lint-ignore no-explicit-any
   compilerOptions: any;
 }
 
@@ -40,8 +42,8 @@ export class Handlebars {
 
       for (let i = 0; i < helperKeys.length; i++) {
         const helperKey = helperKeys[i];
-        // @ts-ignore
-        HandlebarsJS.registerHelper(helperKey, this.config.helpers[helperKey]);
+        // deno-lint-ignore no-explicit-any
+        (HandlebarsJS as any).registerHelper(helperKey, this.config.helpers[helperKey]);
       }
     }
   }
@@ -55,7 +57,7 @@ export class Handlebars {
      */
   public async renderView(
     view: string,
-    context?: Object,
+    context?: Record<string, unknown>,
     layout?: string,
   ): Promise<string> {
     if (!view) {
@@ -91,11 +93,11 @@ export class Handlebars {
   /**
      * Processes on render without partials and layouts
      */
-  public async render(path: string, context?: Object): Promise<string> {
+  public async render(path: string, context?: Record<string, unknown>): Promise<string> {
     // TODO: use cashe
     const source: string = new TextDecoder().decode(await readFile(path));
-    // @ts-ignore
-    const template = HandlebarsJS.compile(source, this.config!.compilerOptions);
+    // deno-lint-ignore no-explicit-any
+    const template = (HandlebarsJS as any).compile(source, this.config!.compilerOptions);
 
     return template(context);
   }
@@ -114,8 +116,8 @@ export class Handlebars {
         .replace(new RegExp(this.config!.extname + "$"), "");
       const source: string = new TextDecoder().decode(await readFile(path));
 
-      // @ts-ignore
-      HandlebarsJS.registerPartial(templateName, source);
+      // deno-lint-ignore no-explicit-any
+      (HandlebarsJS as any).registerPartial(templateName, source);
     }
   }
 
