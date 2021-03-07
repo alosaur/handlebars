@@ -43,7 +43,10 @@ export class Handlebars {
       for (let i = 0; i < helperKeys.length; i++) {
         const helperKey = helperKeys[i];
         // deno-lint-ignore no-explicit-any
-        (HandlebarsJS as any).registerHelper(helperKey, this.config.helpers[helperKey]);
+        (HandlebarsJS as any).registerHelper(
+          helperKey,
+          this.config.helpers[helperKey],
+        );
       }
     }
   }
@@ -93,11 +96,17 @@ export class Handlebars {
   /**
      * Processes on render without partials and layouts
      */
-  public async render(path: string, context?: Record<string, unknown>): Promise<string> {
+  public async render(
+    path: string,
+    context?: Record<string, unknown>,
+  ): Promise<string> {
     // TODO: use cashe
     const source: string = new TextDecoder().decode(await readFile(path));
     // deno-lint-ignore no-explicit-any
-    const template = (HandlebarsJS as any).compile(source, this.config!.compilerOptions);
+    const template = (HandlebarsJS as any).compile(
+      source,
+      this.config!.compilerOptions,
+    );
 
     return template(context);
   }

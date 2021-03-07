@@ -31,5 +31,4 @@ const DEFAULT_HANDLEBARS_CONFIG: HandlebarsConfig = {
 
 // Then render page to string
 const result: string = await handle.renderView('index', { name: 'Alosaur' });
-
 ```
