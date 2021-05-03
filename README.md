@@ -32,3 +32,22 @@ const DEFAULT_HANDLEBARS_CONFIG: HandlebarsConfig = {
 // Then render page to string
 const result: string = await handle.renderView('index', { name: 'Alosaur' });
 ```
+
+#### Rendering in development mode
+
+By default partials are registered (and so cached) the first time you call
+`renderView`. However, in development, it may be better to re-register them
+every time you render a view so that the rendering reflects the latest changes
+you have made to your partials.
+
+You can ensure this happens by passing `true` for the final `refreshPartials`
+parameter for `renderView` e.g.
+
+```
+const result: string = await handle.renderView(
+  'index',
+  { name: 'Alosaur' },
+  undefined,
+  true,
+);
+```
