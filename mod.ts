@@ -14,6 +14,7 @@ export interface HandlebarsConfig {
   extname: string;
   layoutsDir: string;
   partialsDir: string;
+  cachePartials?: boolean;
   defaultLayout: string;
   // deno-lint-ignore no-explicit-any
   helpers: any;
@@ -26,6 +27,7 @@ const DEFAULT_HANDLEBARS_CONFIG: HandlebarsConfig = {
   extname: ".hbs",
   layoutsDir: "layouts/",
   partialsDir: "partials/",
+  cachePartials: true,
   defaultLayout: "main",
   helpers: undefined,
   compilerOptions: undefined,
@@ -36,6 +38,8 @@ function getNormalizePath(path: string) {
 }
 
 export class Handlebars {
+  #havePartialsBeenRegistered = false;
+
   constructor(private config: HandlebarsConfig = DEFAULT_HANDLEBARS_CONFIG) {
     this.config = { ...DEFAULT_HANDLEBARS_CONFIG, ...config };
 
@@ -72,10 +76,9 @@ export class Handlebars {
 
     const config: HandlebarsConfig = this.config as HandlebarsConfig;
 
-    const partialsPathes = await this.getTemplatesPath(
-      join(config.baseDir, config.partialsDir),
-    );
-    partialsPathes && (await this.registerPartials(partialsPathes));
+    if (!config.cachePartials || !this.#havePartialsBeenRegistered) {
+      await this.registerPartials();
+    }
 
     const path = join(config.baseDir, view + config.extname);
     const body: string = await this.render(path, context);
@@ -116,20 +119,27 @@ export class Handlebars {
   /**
      * Processes on register partials
      */
-  private async registerPartials(pathes: string[]) {
-    for (const path of pathes) {
-      const templateName: string = path
-        .replace(
-          getNormalizePath(this.config.baseDir) + "/" +
-            this.config!.partialsDir,
-          "",
-        )
-        .replace(new RegExp(this.config!.extname + "$"), "");
-      const source: string = new TextDecoder().decode(await readFile(path));
+  private async registerPartials() {
+    const paths = await this.getTemplatesPath(
+      join(this.config.baseDir, this.config.partialsDir),
+    );
+    if (paths) {
+      for (const path of paths) {
+        const templateName: string = path
+          .replace(
+            getNormalizePath(this.config.baseDir) + "/" +
+              this.config!.partialsDir,
+            "",
+          )
+          .replace(new RegExp(this.config!.extname + "$"), "");
+        const source: string = new TextDecoder().decode(await readFile(path));
 
-      // deno-lint-ignore no-explicit-any
-      (HandlebarsJS as any).registerPartial(templateName, source);
+        // deno-lint-ignore no-explicit-any
+        (HandlebarsJS as any).registerPartial(templateName, source);
+      }
     }
+
+    this.#havePartialsBeenRegistered = true;
   }
 
   /**
