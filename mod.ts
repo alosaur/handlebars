@@ -14,6 +14,7 @@ export interface HandlebarsConfig {
   extname: string;
   layoutsDir: string;
   partialsDir: string;
+  cachePartials?: boolean;
   defaultLayout: string;
   // deno-lint-ignore no-explicit-any
   helpers: any;
@@ -26,6 +27,7 @@ const DEFAULT_HANDLEBARS_CONFIG: HandlebarsConfig = {
   extname: ".hbs",
   layoutsDir: "layouts/",
   partialsDir: "partials/",
+  cachePartials: true,
   defaultLayout: "main",
   helpers: undefined,
   compilerOptions: undefined,
@@ -66,7 +68,6 @@ export class Handlebars {
     view: string,
     context?: Record<string, unknown>,
     layout?: string,
-    refreshPartials?: boolean,
   ): Promise<string> {
     if (!view) {
       console.warn("View is null");
@@ -75,7 +76,7 @@ export class Handlebars {
 
     const config: HandlebarsConfig = this.config as HandlebarsConfig;
 
-    if (refreshPartials || !this.#havePartialsBeenRegistered) {
+    if (!config.cachePartials || !this.#havePartialsBeenRegistered) {
       await this.registerPartials();
     }
 
