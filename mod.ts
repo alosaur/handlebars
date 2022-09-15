@@ -1,4 +1,4 @@
-import HandlebarsJS from "https://dev.jspm.io/handlebars@4.7.6";
+import HandlebarsJS from "https://jspm.dev/handlebars@4.7.6";
 import { walk } from "https://deno.land/std@0.110.0/fs/mod.ts";
 import {
   globToRegExp,
