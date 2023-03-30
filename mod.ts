@@ -1,10 +1,10 @@
-import HandlebarsJS from "https://esm.sh/handlebars@4.7.6";
-import { walk } from "https://deno.land/std@0.110.0/fs/mod.ts";
+import HandlebarsJS from "https://esm.sh/handlebars@4.7.7";
+import { walk } from "https://deno.land/std@0.181.0/fs/mod.ts";
 import {
   globToRegExp,
   join,
   normalize,
-} from "https://deno.land/std@0.110.0/path/mod.ts";
+} from "https://deno.land/std@0.181.0/path/mod.ts";
 const { readFile } = Deno;
 
 export { HandlebarsJS };
