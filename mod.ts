@@ -1,4 +1,4 @@
-import HandlebarsJS from "https://esm.sh/handlebars@4.7.7";
+import HandlebarsJS from "https://esm.sh/handlebars@4.7.8";
 import { walk } from "https://deno.land/std@0.181.0/fs/mod.ts";
 import {
   globToRegExp,
